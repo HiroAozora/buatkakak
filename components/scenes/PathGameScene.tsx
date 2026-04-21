@@ -331,7 +331,7 @@ function PathGame({ char }: { char: (typeof CHARS)[0] }) {
       exit={{ opacity: 0 }}
     >
       {/* Header */}
-      <div className="absolute top-32 left-0 right-0 flex flex-col items-center gap-1 z-10 pointer-events-none">
+      <div className="absolute top-28 left-0 right-0 flex flex-col items-center gap-1 z-10 pointer-events-none">
         <p className="text-white/30 text-xs tracking-widest uppercase">
           Jalur Bimbingan
         </p>
