@@ -3,16 +3,13 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useScene } from '@/lib/sceneStore'
 
-// Shake keyframes via Framer Motion variants
-const shakeVariants = {
-  idle:  { x: 0, y: 0, rotate: 0 },
-  shake: {
-    x:      [0, -14, 14, -10, 10, -6, 6, -3, 3, 0],
-    y:      [0,   4, -4,   3, -3,  2, -2,  1, -1, 0],
-    rotate: [0,  -3,  3,  -2,  2, -1,  1,  0,  0, 0],
-    transition: { duration: 0.7, ease: 'easeInOut' },
-  },
+const SHAKE_ANIMATE = {
+  x:      [0, -14, 14, -10, 10, -6, 6, -3, 3, 0] as number[],
+  y:      [0,   4, -4,   3, -3,  2, -2,  1, -1, 0] as number[],
+  rotate: [0,  -3,  3,  -2,  2, -1,  1,  0,  0, 0] as number[],
 }
+const SHAKE_TRANSITION = { duration: 0.7, ease: 'easeInOut' as const }
+const IDLE_ANIMATE  = { x: 0, y: 0, rotate: 0 }
 
 export default function RevisiTwistScene() {
   const { next } = useScene()
@@ -31,10 +28,9 @@ export default function RevisiTwistScene() {
     <motion.div
       className="relative min-h-dvh w-full flex items-center justify-center overflow-hidden"
       style={{ background: '#07070f' }}
-      variants={shakeVariants}
-      animate={shaking ? 'shake' : 'idle'}
+      animate={shaking ? SHAKE_ANIMATE : IDLE_ANIMATE}
+      transition={shaking ? SHAKE_TRANSITION : { duration: 0.3 }}
       initial={{ opacity: 0 }}
-      // fade-in override via a child wrapper
     >
       {/* Full-screen fade in */}
       <motion.div
