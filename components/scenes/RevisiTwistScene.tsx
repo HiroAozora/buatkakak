@@ -7,9 +7,10 @@ const SHAKE_ANIMATE = {
   x:      [0, -14, 14, -10, 10, -6, 6, -3, 3, 0] as number[],
   y:      [0,   4, -4,   3, -3,  2, -2,  1, -1, 0] as number[],
   rotate: [0,  -3,  3,  -2,  2, -1,  1,  0,  0, 0] as number[],
+  opacity: 1,
 }
 const SHAKE_TRANSITION = { duration: 0.7, ease: 'easeInOut' as const }
-const IDLE_ANIMATE  = { x: 0, y: 0, rotate: 0 }
+const IDLE_ANIMATE  = { x: 0, y: 0, rotate: 0, opacity: 1 }
 
 export default function RevisiTwistScene() {
   const { next } = useScene()
@@ -17,10 +18,10 @@ export default function RevisiTwistScene() {
   const [showPopup, setShowPopup] = useState(false)
 
   useEffect(() => {
-    // Short pause → shake → popup → advance
-    const t1 = setTimeout(() => setShaking(true),   300)
-    const t2 = setTimeout(() => { setShaking(false); setShowPopup(true) }, 1100)
-    const t3 = setTimeout(() => next(), 3500)
+    // Fake loading screen → shake → popup → advance
+    const t1 = setTimeout(() => setShaking(true),   1400)
+    const t2 = setTimeout(() => { setShaking(false); setShowPopup(true) }, 2200)
+    const t3 = setTimeout(() => next(), 4500)
     return () => [t1, t2, t3].forEach(clearTimeout)
   }, [next])
 
@@ -39,6 +40,21 @@ export default function RevisiTwistScene() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
       />
+
+      {/* Fake loading text */}
+      <AnimatePresence>
+        {!showPopup && !shaking && (
+          <motion.p
+            className="absolute text-white/40 text-sm tracking-widest font-light z-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0.2, 0.8, 0.2] }}
+            exit={{ opacity: 0, filter: 'blur(4px)' }}
+            transition={{ repeat: Infinity, duration: 1 }}
+          >
+            bentar yaa...
+          </motion.p>
+        )}
+      </AnimatePresence>
 
       {/* Red flash on shake */}
       <AnimatePresence>

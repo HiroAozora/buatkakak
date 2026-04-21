@@ -55,7 +55,7 @@ export default function CinematicScene() {
         transition={{ delay: 1, duration: 2.5 }}
       />
 
-      {/* Photo */}
+      {/* Central Photo */}
       <div
         ref={fotoRef}
         className="relative z-10"
@@ -77,6 +77,28 @@ export default function CinematicScene() {
           priority
         />
       </div>
+
+      {/* Floating Polaroid 1 */}
+      <motion.div 
+        className="absolute z-20 w-28 h-36 md:w-32 md:h-44 drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] pointer-events-none"
+        style={{ left: '4%', top: '12%' }}
+        initial={{ opacity: 0, rotate: -30, scale: 0.5, x: -30 }}
+        animate={{ opacity: 1, rotate: -12, scale: 1, x: 0 }}
+        transition={{ delay: 1.4, type: 'spring', stiffness: 120, damping: 15 }}
+      >
+        <Image src="/images/kakak/polaroid-1.png" alt="Polaroid 1" fill className="object-contain" sizes="130px" priority />
+      </motion.div>
+
+      {/* Floating Polaroid 2 */}
+      <motion.div 
+        className="absolute z-20 w-28 h-36 md:w-32 md:h-44 drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] pointer-events-none"
+        style={{ right: '4%', bottom: '15%' }}
+        initial={{ opacity: 0, rotate: 30, scale: 0.5, x: 30 }}
+        animate={{ opacity: 1, rotate: 15, scale: 1, x: 0 }}
+        transition={{ delay: 1.7, type: 'spring', stiffness: 120, damping: 15 }}
+      >
+        <Image src="/images/kakak/polaroid-2.png" alt="Polaroid 2" fill className="object-contain" sizes="130px" priority />
+      </motion.div>
 
       {/* Caption */}
       <motion.p
